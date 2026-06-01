@@ -1,0 +1,145 @@
+ai-logs
+01 - project-planning		(done)
+02 - db-design			(empty)
+03 - auhtentication-planning	(outcome left)
+04 - server-setup		(done)
+05 - auth-implementation	(done)
+06 - food-upload		(empty)
+07 - dashboard			(empty)
+08 - debugging			(empty)
+09 - final-polish		(empty)
+
+frontend (empty)
+
+backend
+src/
+	config/db.js - (done)
+	controllers/authController.js - (empty)
+	middleware - (empty)
+	models/User.js - (done)
+	routes/authRoutes.js - (empty)
+	services - (empty)
+	utils - (empty)
+.env - (done)
+server.js - (done)
+
+docs/
+	api-contract - (done)
+	auth-flow - (done)
+	database-design - (done)
+	project-spec - (done)
+	user-model - (done)
+
+Any AI-logs to update:
+01 - project-planning
+	# Prompt:
+
+Act as Senior Architect
+Design an AI calorie tracker similar to Cal AI.
+
+# Reason:
+
+Needed complete project architecture before coding.
+
+# Outcome:
+
+
+# Defined:
+- User Journey
+- MVP Features
+- Screens
+- Database Design
+- API contracts
+----------------------------------------
+
+02 - db-design
+----------------------------------------
+03 - auhtentication-planning
+# AI Log 02 - Authentication Planning
+
+Reason:
+
+Authentication is required before implementing food tracking, diary management, and user goals.
+
+Outcome:
+
+Defined:
+
+- User schema
+- Registration flow
+- Login flow
+- JWT authentication strategy
+- Password hashing approach
+
+Key Decisions:
+
+- Use JWT for authentication
+- Use bcryptjs for password hashing
+- Store tokens client-side
+
+Impact:
+
+Provides secure user access and acts as the foundation for all personalized features.
+----------------------------------------
+04 - server-setup	
+# AI Log 03 - Server Setup
+
+## Prompt
+
+Create a MongoDB connection module using Mongoose.
+
+Requirements:
+- Read MONGODB_URI from environment variables
+- Use async/await
+- Display success message when connected
+- Display error message if connection fails
+- Export the connection function
+
+Create an Express server.
+
+Requirements:
+- dotenv configuration
+- express
+- cors
+- connectDB function
+- JSON middleware
+- GET / route returning:
+
+{
+  "message": "NutriSnap API Running"
+}
+
+- Listen on process.env.PORT
+
+## Reason
+
+Needed backend foundation before authentication development.
+
+## Outcome
+
+Implemented:
+
+- Express server
+- MongoDB Atlas connection
+- Environment variable support
+- Health check endpoint
+
+## Key Decisions
+
+- Used Mongoose
+- Used dotenv
+- Used nodemon for development
+
+## Impact
+
+Established backend infrastructure required for all future APIs.	
+----------------------------------------
+05 - auth-implementation	
+----------------------------------------
+06 - food-upload
+----------------------------------------		
+07 - dashboard	
+----------------------------------------		
+08 - debugging	
+----------------------------------------		
+09 - final-polish
