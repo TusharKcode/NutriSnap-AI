@@ -1,5 +1,5 @@
 const FoodEntry = require('../models/FoodEntry');
-const { analyzeFood } = require('../services/foodAnalysisService');
+const analyzeFood  = require('../services/foodAnalysisService');
 
 const uploadFood = async (req, res) => {
     try {
