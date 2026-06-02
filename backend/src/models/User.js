@@ -20,15 +20,19 @@ const userSchema = new mongoose.Schema(
         },
         calorieGoal: {
             type: Number,
+            default: 2000,
         },
         proteinGoal: {
             type: Number,
+            default: 120,
         },
         carbGoal: {
             type: Number,
+            default: 250,
         },
         fatGoal: {
             type: Number,
+            default: 70,
         },
         streakCount: {
             type: Number,
@@ -40,4 +44,4 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.models.User || mongoose.model('User', userSchema);

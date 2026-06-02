@@ -22,6 +22,7 @@ const registerUser = async (req, res) => {
             name: name.trim(),
             email: email.toLowerCase().trim(),
             password: hashedPassword,
+            // Goal defaults will be applied by the schema
         });
 
         await user.save();
@@ -74,4 +75,50 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser };
+const updateUserGoals = async (req, res) => {
+    try {
+        const user = req.user;
+
+        if (!user) {
+            return res.status(401).json({ message: 'User not authenticated' });
+        }
+
+        const { calorieGoal, proteinGoal, carbGoal, fatGoal } = req.body;
+
+        // Validate goals are positive numbers
+        if (calorieGoal !== undefined && (typeof calorieGoal !== 'number' || calorieGoal < 0)) {
+            return res.status(400).json({ message: 'calorieGoal must be a positive number' });
+        }
+        if (proteinGoal !== undefined && (typeof proteinGoal !== 'number' || proteinGoal < 0)) {
+            return res.status(400).json({ message: 'proteinGoal must be a positive number' });
+        }
+        if (carbGoal !== undefined && (typeof carbGoal !== 'number' || carbGoal < 0)) {
+            return res.status(400).json({ message: 'carbGoal must be a positive number' });
+        }
+        if (fatGoal !== undefined && (typeof fatGoal !== 'number' || fatGoal < 0)) {
+            return res.status(400).json({ message: 'fatGoal must be a positive number' });
+        }
+
+        // Update only provided goals
+        if (calorieGoal !== undefined) user.calorieGoal = calorieGoal;
+        if (proteinGoal !== undefined) user.proteinGoal = proteinGoal;
+        if (carbGoal !== undefined) user.carbGoal = carbGoal;
+        if (fatGoal !== undefined) user.fatGoal = fatGoal;
+
+        await user.save();
+
+        const userResponse = user.toObject();
+        delete userResponse.password;
+
+        res.json({
+            success: true,
+            message: 'Goals updated successfully',
+            user: userResponse,
+        });
+    } catch (error) {
+        console.error('[Auth] updateUserGoals failed:', error);
+        res.status(500).json({ message: 'Server error while updating goals' });
+    }
+};
+
+module.exports = { registerUser, loginUser, updateUserGoals };
