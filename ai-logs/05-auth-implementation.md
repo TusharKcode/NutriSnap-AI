@@ -72,3 +72,29 @@ Implemented:
 ### Impact
 
 Completed secure token-based authentication flow.
+
+## Iteration 4
+
+### Prompt
+
+Create loginUser controller.
+
+Requirements:
+- Accept email and password
+- Find user by email
+- Compare password using bcryptjs
+- Generate JWT
+- Return token and user
+- Proper error handling
+
+### Outcome
+
+Implemented:
+- Login endpoint
+- Password verification
+- JWT token generation
+- Invalid credential handling
+
+### Impact
+
+Users can authenticate and receive secure access tokens for protected routes.
