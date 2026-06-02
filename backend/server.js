@@ -13,6 +13,8 @@ app.get('/', (req, res) => {
     res.json({ message: 'NutriSnap API Running' });
 });
 
+app.use("/api/auth", authRoutes);
+
 const PORT = process.env.PORT;
 
 if (!PORT) {

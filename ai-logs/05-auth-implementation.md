@@ -38,3 +38,27 @@ Implemented:
 ## Impact
 
 Created the core data structure required for registration, login, and personalized tracking.
+
+## Iteration 2
+
+Prompt:
+
+Create registerUser controller.
+
+Requirements:
+- Validation
+- Password hashing
+- User existence check
+- MongoDB persistence
+
+Outcome:
+
+Implemented:
+- User registration
+- Password hashing with bcryptjs
+- MongoDB storage
+- Validation handling
+
+Impact:
+
+Users can now create accounts securely.
