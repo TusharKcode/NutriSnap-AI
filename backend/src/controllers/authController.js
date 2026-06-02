@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const generateToken = require('../utils/generateToken');
 
 const registerUser = async (req, res) => {
     try {
@@ -25,7 +26,15 @@ const registerUser = async (req, res) => {
 
         await user.save();
 
-        res.status(201).json({ message: 'User registered successfully' });
+        const token = generateToken(user._id);
+        const userResponse = user.toObject();
+        delete userResponse.password;
+
+        res.status(201).json({
+            success: true,
+            token,
+            user: userResponse,
+        });
     } catch (error) {
         console.error('[Auth] registerUser failed:', error);
         res.status(500).json({ message: 'Server error while registering user' });

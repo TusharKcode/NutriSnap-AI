@@ -39,26 +39,36 @@ Implemented:
 
 Created the core data structure required for registration, login, and personalized tracking.
 
-## Iteration 2
+## Iteration 3
 
-Prompt:
+### Prompt
 
-Create registerUser controller.
+Create a reusable JWT token generator.
 
 Requirements:
-- Validation
-- Password hashing
-- User existence check
-- MongoDB persistence
+- Use jsonwebtoken
+- Accept userId
+- Read JWT_SECRET from environment variables
+- Expires in 30 days
 
-Outcome:
+### Outcome
 
 Implemented:
-- User registration
-- Password hashing with bcryptjs
-- MongoDB storage
-- Validation handling
+- JWT utility function
+- Token generation after registration
+- User + Token response
 
-Impact:
+### Challenges
 
-Users can now create accounts securely.
+- JWT_SECRET was missing from environment variables
+- Atlas connection string required correction
+
+### Resolution
+
+- Added JWT_SECRET to .env
+- Corrected MongoDB Atlas URI
+- Restarted server after environment changes
+
+### Impact
+
+Completed secure token-based authentication flow.
