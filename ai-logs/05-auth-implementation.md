@@ -98,3 +98,25 @@ Implemented:
 ### Impact
 
 Users can authenticate and receive secure access tokens for protected routes.
+
+## Iteration 5
+
+### Prompt
+
+Create JWT authentication middleware.
+
+Requirements:
+- Verify token
+- Protect routes
+- Attach authenticated user to request
+
+### Outcome
+
+Implemented:
+- Route protection middleware
+- JWT verification
+- User lookup from database
+
+### Impact
+
+Enabled secure access to user-specific resources.
