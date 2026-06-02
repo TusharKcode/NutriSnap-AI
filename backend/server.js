@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./src/config/db');
 const authRoutes = require('./src/routes/authRoutes');
+const foodRoutes = require('./src/routes/foodRoutes');
 
 const app = express();
 
@@ -14,7 +15,8 @@ app.get('/', (req, res) => {
     res.json({ message: 'NutriSnap API Running' });
 });
 
-app.use("/api/auth", authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/food', foodRoutes);
 
 const PORT = process.env.PORT;
 
