@@ -88,3 +88,19 @@ Implemented:
 ## Impact
 
 Created first user-facing dashboard screen and connected backend analytics APIs.
+
+Goal Management
+
+Implemented:
+- GET /api/user/goals
+- PUT /api/user/goals
+
+Features:
+- Fetch user nutrition goals
+- Update calorie goal
+- Update protein goal
+- Update carb goal
+- Update fat goal
+
+Impact:
+Users can personalize nutrition targets and dashboard progress calculations.
