@@ -10,12 +10,19 @@ const getAuthConfig = () => {
 	};
 };
 
-export async function uploadFood(data) {
+export async function uploadFood(formData) {
 	try {
+		const token = localStorage.getItem('authToken');
+
 		const response = await api.post(
 			'/food/upload',
-			data,
-			getAuthConfig()
+			formData,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					'Content-Type': 'multipart/form-data',
+				},
+			}
 		);
 
 		return response;
