@@ -76,3 +76,39 @@ Verified:
 ## Impact
 
 Completed end-to-end authentication flow between frontend and backend, enabling access to personalized dashboard features.
+
+## Iteration 4
+
+### Prompt
+
+Implement logout functionality using AuthContext.
+
+Requirements:
+
+* Clear JWT token
+* Clear user data
+* Remove localStorage values
+* Redirect to login page
+* Prevent access to protected routes after logout
+
+### Outcome
+
+Implemented:
+
+* Logout button
+* Session cleanup
+* LocalStorage cleanup
+* Login page redirection
+
+### Validation
+
+Verified:
+
+* User can logout successfully
+* Dashboard becomes inaccessible
+* Protected routes redirect correctly
+* Session data removed from browser storage
+
+### Impact
+
+Completed frontend authentication lifecycle including login, persistence, route protection, and logout.
