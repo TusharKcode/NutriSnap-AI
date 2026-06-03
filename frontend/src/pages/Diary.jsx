@@ -1,5 +1,103 @@
-function Diary(){
-    return <h1>Diary Page</h1>
+import { useEffect, useState } from 'react';
+import foodService from '../services/foodService';
+
+function Diary() {
+	const [entries, setEntries] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState('');
+
+	const loadDiary = async () => {
+		setLoading(true);
+		setError('');
+
+		try {
+			console.log('Stored Token:', localStorage.getItem('authToken'));
+
+			const response = await foodService.getDiary();
+
+			console.log('Diary Response:', response);
+			console.log('Diary Data:', response?.data);
+			console.log('Diary Status:', response?.status);
+
+			if (response?.status === 200) {
+				setEntries(response.data.entries || []);
+			} else {
+				setError(
+					response?.data?.message ||
+					`Request failed with status ${response?.status}`
+				);
+			}
+		} catch (err) {
+			console.error('Diary Error:', err);
+
+			setError(
+				err?.response?.data?.message ||
+				err?.message ||
+				'Failed to load diary entries.'
+			);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	useEffect(() => {
+		const initialize = async () => {
+			await loadDiary();
+		};
+
+		initialize();
+	}, []);
+
+	if (loading) {
+		return (
+			<div className="p-10 text-center">
+				Loading diary...
+			</div>
+		);
+	}
+
+	return (
+		<div className="min-h-screen bg-gray-50 p-6">
+			<div className="max-w-6xl mx-auto">
+				<div className="mb-8">
+					<h1 className="text-4xl font-bold text-gray-900">
+						Food Diary
+					</h1>
+
+					<p className="text-gray-600 mt-2">
+						View all tracked meals.
+					</p>
+				</div>
+
+				{error && (
+					<div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 text-red-700">
+						{error}
+					</div>
+				)}
+
+				{entries.length === 0 ? (
+					<div className="bg-white rounded-2xl shadow p-8 text-center">
+						<p className="text-gray-500">
+							No food entries found.
+						</p>
+					</div>
+				) : (
+					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+						{entries.map((entry) => (
+							<div
+								key={entry._id}
+								className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6"
+							>
+								<h2 className="text-xl font-semibold">
+									{entry.foodName}
+								</h2>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+		</div>
+	);
 }
 
 export default Diary;
