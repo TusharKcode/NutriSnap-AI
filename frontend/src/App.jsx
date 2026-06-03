@@ -7,6 +7,7 @@ import Diary from "./pages/Diary";
 import UploadFood from "./pages/UploadFood";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Goals from "./pages/Goals";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -15,6 +16,14 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={

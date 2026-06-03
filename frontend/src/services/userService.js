@@ -1,5 +1,15 @@
 import api from '../api/api';
 
+export async function getProfile() {
+	try {
+		const response = await api.get('/user/profile');
+		return response;
+	} catch (err) {
+		if (err.response) return err.response;
+		throw err;
+	}
+}
+
 export async function getGoals() {
 	try {
 		const response = await api.get('/user/goals');
@@ -21,6 +31,7 @@ export async function updateGoals(data) {
 }
 
 const userService = {
+    getProfile,
 	getGoals,
 	updateGoals,
 };

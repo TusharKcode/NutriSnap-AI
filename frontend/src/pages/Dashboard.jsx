@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Link } from 'react-router-dom';
 import dashboardService from "../services/dashboardService";
 
 function Dashboard() {
@@ -108,6 +109,38 @@ function Dashboard() {
                 >
                     Logout
                 </button>
+            </div>
+
+            <div className="flex gap-3 mt-4">
+
+                <Link
+                    to="/upload"
+                    className="px-4 py-2 bg-orange-500 text-white rounded-lg"
+                >
+                    Upload Food
+                </Link>
+
+                <Link
+                    to="/diary"
+                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
+                >
+                    Diary
+                </Link>
+
+                <Link
+                    to="/goals"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                >
+                    Goals
+                </Link>
+
+                <Link
+                    to="/profile"
+                    className="px-4 py-2 bg-purple-500 text-white rounded-lg"
+                >
+                    Profile
+                </Link>
+
             </div>
 
             {isLoading ? (
