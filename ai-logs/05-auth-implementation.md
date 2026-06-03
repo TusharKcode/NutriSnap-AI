@@ -120,3 +120,14 @@ Implemented:
 ### Impact
 
 Enabled secure access to user-specific resources.
+
+
+## Frontend Integration
+
+Integrated backend authentication APIs with React frontend.
+
+Validated:
+- Login API
+- JWT persistence
+- User session management
+- Dashboard redirection
