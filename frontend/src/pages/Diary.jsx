@@ -88,9 +88,48 @@ function Diary() {
 								key={entry._id}
 								className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6"
 							>
-								<h2 className="text-xl font-semibold">
-									{entry.foodName}
+								<h2 className="text-2xl font-bold mb-3">
+									🥗 {entry.foodName}
 								</h2>
+
+								<div className="space-y-2 text-gray-700">
+									<p>
+										<strong>Calories:</strong> {entry.calories} kcal
+									</p>
+
+									<p>
+										<strong>Protein:</strong> {entry.protein}g
+									</p>
+
+									<p>
+										<strong>Carbs:</strong> {entry.carbs}g
+									</p>
+
+									<p>
+										<strong>Fat:</strong> {entry.fat}g
+									</p>
+
+									<p>
+										<strong>Meal:</strong>{' '}
+										{entry.mealType
+											? entry.mealType.charAt(0).toUpperCase() +
+											entry.mealType.slice(1)
+											: 'N/A'}
+									</p>
+
+									<p>
+										<strong>Date:</strong>{' '}
+										{new Date(entry.createdAt).toLocaleDateString()}
+									</p>
+								</div>
+
+								{entry.imageUrl && (
+									<img
+										src={entry.imageUrl}
+										alt={entry.foodName}
+										className="mt-4 h-48 w-full object-cover rounded-xl"
+									/>
+								)}
 							</div>
 						))}
 					</div>
