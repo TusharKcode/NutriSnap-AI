@@ -5,6 +5,7 @@ import dashboardService from "../services/dashboardService";
 import Navbar from '../components/Navbar';
 import SummaryCard from '../components/SummaryCard';
 import StreakCard from "../components/StreakCard";
+import WeeklyChart from '../components/WeeklyChart';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ function Dashboard() {
     const [streak, setStreak] = useState(null);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [weeklyData, setWeeklyData] = useState(true);
 
     const streakCount =
         streak?.currentStreak ||
@@ -59,10 +61,11 @@ function Dashboard() {
         setError("");
 
         try {
-            const [summaryRes, goalsRes, streakRes] = await Promise.all([
+            const [summaryRes, goalsRes, streakRes, weeklyRes] = await Promise.all([
                 dashboardService.getDashboardSummary(),
                 dashboardService.getGoalProgress(),
                 dashboardService.getStreak(),
+                dashboardService.getWeeklyStats()
             ]);
 
             if (summaryRes?.status === 200) {
@@ -81,6 +84,12 @@ function Dashboard() {
                 setStreak(streakRes.data);
             } else {
                 setError((prev) => prev || "Unable to load streak data.");
+            }
+
+            if (weeklyRes?.status === 200) {
+                setWeeklyData(weeklyRes.data)
+            } else {
+                setError((prev) => prev || "Unable to load weekly chart data.");
             }
         } catch (err) {
             setError("An error occurred while loading dashboard data.", err);
@@ -222,6 +231,15 @@ function Dashboard() {
 
                             </div>
                         </div>
+
+                        <div>
+                            <div className="space-y-3 ">
+                                <WeeklyChart
+                                    data={weeklyData}
+                                />
+                            </div>
+                        </div>
+
                     </div>
                 </>
             )}

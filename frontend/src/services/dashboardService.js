@@ -30,10 +30,21 @@ export async function getStreak() {
 	}
 }
 
+export async function getWeeklyStats() {
+	try {
+		const response = await api.get('/dashboard/weekly');
+		return response;
+	} catch (err) {
+		if (err.response) return err.response;
+		throw err;
+	}
+}
+
 const dashboardService = {
 	getDashboardSummary,
 	getGoalProgress,
 	getStreak,
+	getWeeklyStats
 };
 
 export default dashboardService;
