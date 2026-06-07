@@ -1,12 +1,29 @@
-const analyzeFood = async (imageUrl) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+const fs = require('fs');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-    return {
-        foodName: "Sample Salad",
-        calories: 350,
-        protein: 12,
-        carbs: 30,
-        fat: 20
-    };
+const genAI = new GoogleGenerativeAI(
+	process.env.GEMINI_API_KEY
+);
+
+const analyzeFood = async (imagePath) => {
+	try {
+		console.log('Analyzing:', imagePath);
+
+		return {
+			foodName: '',
+			calories: 0,
+			protein: 0,
+			carbs: 0,
+			fat: 0,
+		};
+	} catch (error) {
+		console.error(
+			'[Gemini Analysis Error]',
+			error
+		);
+
+		throw error;
+	}
 };
+
 module.exports = analyzeFood;
