@@ -31,7 +31,7 @@ const uploadFood = async (req, res) => {
         // Temporary image reference
         const imageUrl = `${req.protocol}://${req.get('host')}` + `/uploads/${imageFile.filename}`;
 
-        const analysis = await analyzeFood(imageUrl);
+        const analysis = await analyzeFood(imageFile.path, imageFile.mimetype);
 
         const entry = new FoodEntry({
             userId: user._id,
@@ -112,7 +112,49 @@ const getDiary = async (req, res) => {
     }
 };
 
+const analyzeFoodImage = async (req, res) => {
+    try {
+        const user = req.user;
+
+        if (!user) {
+            return res.status(401).json({
+                message: 'Unauthorized',
+            });
+        }
+
+        const imageFile = req.file;
+
+        if (!imageFile) {
+            return res.status(400).json({
+                message: 'Image file is required',
+            });
+        }
+
+        const analysis = await analyzeFood(
+            imageFile.path,
+            imageFile.mimetype
+        );
+
+        return res.status(200).json({
+            success: true,
+            analysis,
+        });
+
+    } catch (error) {
+        console.error(
+            '[FoodController] analyzeFoodImage failed:',
+            error
+        );
+
+        return res.status(500).json({
+            message:
+                'Failed to analyze image',
+        });
+    }
+};
+
 module.exports = {
     uploadFood,
     getDiary,
+    analyzeFoodImage
 };
