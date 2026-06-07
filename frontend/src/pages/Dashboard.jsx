@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Link } from 'react-router-dom';
 import dashboardService from "../services/dashboardService";
+import Navbar from '../components/Navbar';
+import SummaryCard from '../components/SummaryCard';
+import StreakCard from "../components/StreakCard";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -99,9 +101,6 @@ function Dashboard() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold">Welcome back, {user?.name}</h1>
-                    <p className="text-sm text-gray-600">
-                        Here is your latest dashboard overview.
-                    </p>
                 </div>
                 <button
                     onClick={handleLogout}
@@ -111,37 +110,7 @@ function Dashboard() {
                 </button>
             </div>
 
-            <div className="flex gap-3 mt-4">
-
-                <Link
-                    to="/upload"
-                    className="px-4 py-2 bg-orange-500 text-white rounded-lg"
-                >
-                    Upload Food
-                </Link>
-
-                <Link
-                    to="/diary"
-                    className="px-4 py-2 bg-green-500 text-white rounded-lg"
-                >
-                    Diary
-                </Link>
-
-                <Link
-                    to="/goals"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-                >
-                    Goals
-                </Link>
-
-                <Link
-                    to="/profile"
-                    className="px-4 py-2 bg-purple-500 text-white rounded-lg"
-                >
-                    Profile
-                </Link>
-
-            </div>
+            <Navbar/>
 
             {isLoading ? (
                 <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-500">
@@ -157,53 +126,19 @@ function Dashboard() {
 
                     <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                         {dashboardMetrics.map((metric) => (
-                            <div
+                            <SummaryCard
                                 key={metric.label}
-                                className="rounded-3xl bg-white p-6 shadow-xl border border-gray-200 transition hover:-translate-y-1 hover:shadow-2xl"
-                            >
-                                <div className="flex items-center justify-between">
-                                    <p className="text-sm font-medium text-gray-500">
-                                        {metric.label}
-                                    </p>
-                                    <div className="h-10 w-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-5 w-5"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path d="M9.049 2.927C9.432 1.9 10.568 1.9 10.951 2.927l.584 1.9a1 1 0 00.95.69h2.004c1.054 0 1.49 1.357.64 1.96l-1.62 1.18a1 1 0 00-.364 1.118l.618 1.94c.27.844-.698 1.54-1.41 1.02l-1.64-1.28a1 1 0 00-1.176 0l-1.64 1.28c-.712.52-1.68-.176-1.41-1.02l.618-1.94a1 1 0 00-.364-1.118L3.87 6.477c-.85-.603-.414-1.96.64-1.96h2.004a1 1 0 00.95-.69l.584-1.9z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div className="mt-6">
-                                    <p className="text-3xl font-semibold text-gray-900">
-                                        {metric.value !== "-"
-                                            ? `${metric.value} ${metric.unit}`
-                                            : "-"}
-                                    </p>
-                                    <p className="mt-2 text-sm text-gray-500">
-                                        Goal: {metric.progress ?? "-"}
-                                    </p>
-                                </div>
-                            </div>
+                                title={metric.label}
+                                value={metric.value}
+                                unit={metric.unit}
+                                goal={metric.progress}
+                            />
                         ))}
                     </div>
 
-                    <div className="rounded-3xl bg-white p-6 shadow-xl border border-gray-200 transition hover:-translate-y-1 hover:shadow-2xl flex items-center justify-between">
-                        <div>
-                            <p className="text-sm font-medium text-gray-500">
-                                🔥 Current Streak
-                            </p>
-                            <p className="mt-4 text-4xl font-semibold text-gray-900">
-                                {streakCount}
-                            </p>
-                            <p className="mt-2 text-sm text-gray-500">Days in a row</p>
-                        </div>
-                        <div className="h-16 w-16 rounded-3xl bg-red-50 text-red-600 flex items-center justify-center text-3xl">
-                            🔥
-                        </div>
-                    </div>
+                    <StreakCard
+                        currentStreak={streakCount}
+                    />
 
                     <div className="grid gap-6 lg:grid-cols-2">
                         <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
