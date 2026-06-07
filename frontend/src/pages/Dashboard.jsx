@@ -6,6 +6,8 @@ import Navbar from '../components/Navbar';
 import SummaryCard from '../components/SummaryCard';
 import StreakCard from "../components/StreakCard";
 import WeeklyChart from '../components/WeeklyChart';
+import FoodList from '../components/FoodList';
+import foodService from '../services/foodService';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -15,7 +17,8 @@ function Dashboard() {
     const [streak, setStreak] = useState(null);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [weeklyData, setWeeklyData] = useState(true);
+    const [weeklyData, setWeeklyData] = useState([]);
+    const [recentFoods, setRecentFoods] = useState([]);
 
     const streakCount =
         streak?.currentStreak ||
@@ -61,11 +64,12 @@ function Dashboard() {
         setError("");
 
         try {
-            const [summaryRes, goalsRes, streakRes, weeklyRes] = await Promise.all([
+            const [summaryRes, goalsRes, streakRes, weeklyRes, diaryRes] = await Promise.all([
                 dashboardService.getDashboardSummary(),
                 dashboardService.getGoalProgress(),
                 dashboardService.getStreak(),
-                dashboardService.getWeeklyStats()
+                dashboardService.getWeeklyStats(),
+                foodService.getDiary()
             ]);
 
             if (summaryRes?.status === 200) {
@@ -90,6 +94,12 @@ function Dashboard() {
                 setWeeklyData(weeklyRes.data)
             } else {
                 setError((prev) => prev || "Unable to load weekly chart data.");
+            }
+
+            if (diaryRes?.status === 200) {
+                setRecentFoods(diaryRes.data.entries || [].slice(0,5))
+            } else {
+                setError((prev) => prev || "Unable to load food data.");
             }
         } catch (err) {
             setError("An error occurred while loading dashboard data.", err);
@@ -239,7 +249,14 @@ function Dashboard() {
                                 />
                             </div>
                         </div>
-
+                        
+                        <div>
+                            <div className="mt-6 ">
+                                <FoodList
+                                    data={recentFoods}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </>
             )}
