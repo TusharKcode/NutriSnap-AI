@@ -97,7 +97,7 @@ function Dashboard() {
             }
 
             if (diaryRes?.status === 200) {
-                setRecentFoods(diaryRes.data.entries || [].slice(0,5))
+                setRecentFoods((diaryRes.data.entries || []).slice(0,5))
             } else {
                 setError((prev) => prev || "Unable to load food data.");
             }

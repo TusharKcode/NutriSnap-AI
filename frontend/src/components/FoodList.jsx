@@ -1,17 +1,17 @@
-function FoodList({ foods = [] }) {
+function FoodList({ data = [] }) {
 	return (
 		<div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
 			<h2 className="text-lg font-semibold mb-4">
 				Recent Meals
 			</h2>
 
-			{foods.length === 0 ? (
+			{data.length === 0 ? (
 				<p className="text-gray-500">
 					No meals logged yet.
 				</p>
 			) : (
 				<div className="space-y-4">
-					{foods.map((food) => (
+					{data.map((food) => (
 						<div
 							key={food._id}
 							className="flex items-center justify-between border-b pb-3"
