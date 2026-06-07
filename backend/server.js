@@ -9,9 +9,15 @@ const dashboardRoutes = require('./src/routes/dashboardRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 
 const app = express();
+const path = require('path')
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads',
+    express.static(
+        path.join(__dirname, 'uploads')
+    )
+);
 
 app.get('/', (req, res) => {
     res.json({ message: 'NutriSnap API Running' });
@@ -21,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/user', userRoutes);
+
 
 const PORT = process.env.PORT;
 

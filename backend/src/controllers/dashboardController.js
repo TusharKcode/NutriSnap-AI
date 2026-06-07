@@ -28,7 +28,13 @@ const getDashboardSummary = async (req, res) => {
             }
         );
 
-        return res.json(summary);
+        return res.json({
+            calories: summary.totalCalories,
+            protein: summary.totalProtein,
+            carbs: summary.totalCarbs,
+            fat: summary.totalFat,
+            totalMeals: summary.totalMeals,
+        });
     } catch (error) {
         console.error('[Dashboard] getDashboardSummary error:', error);
         return res.status(500).json({ message: 'Failed to load dashboard summary' });

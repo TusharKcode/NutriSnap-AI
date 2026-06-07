@@ -29,7 +29,7 @@ const uploadFood = async (req, res) => {
         } = req.body;
 
         // Temporary image reference
-        const imageUrl = `uploaded-${Date.now()}.jpg`;
+        const imageUrl = `${req.protocol}://${req.get('host')}` + `/uploads/${imageFile.filename}`;
 
         const analysis = await analyzeFood(imageUrl);
 
@@ -62,7 +62,9 @@ const uploadFood = async (req, res) => {
                     ? Number(providedFat)
                     : Number(analysis.fat || 0),
 
-            mealType: mealType || undefined,
+            mealType: mealType
+                ? mealType.toLowerCase()
+                : undefined,
         });
 
         await entry.save();
