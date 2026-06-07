@@ -8,6 +8,7 @@ import StreakCard from "../components/StreakCard";
 import WeeklyChart from '../components/WeeklyChart';
 import FoodList from '../components/FoodList';
 import foodService from '../services/foodService';
+import MacroRings from '../components/MacroRings';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -157,6 +158,10 @@ function Dashboard() {
 
                     <StreakCard
                         currentStreak={streakCount}
+                    />
+
+                    <MacroRings
+                        goals={goals}
                     />
 
                     <div className="grid gap-6 lg:grid-cols-2">
