@@ -46,9 +46,33 @@ export async function getDiary() {
 	}
 }
 
+export async function analyzeFood(imageFile) {
+	try {
+		const formData = new FormData();
+		formData.append('image', imageFile);
+
+		const response = await api.post(
+			'/food/analyze',
+			formData,
+			{
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+					'Content-Type': 'multipart/form-data',
+				},
+			}
+		);
+
+		return response;
+	} catch (err) {
+		if (err.response) return err.response;
+		throw err;
+	}
+}
+
 const foodService = {
 	uploadFood,
 	getDiary,
+	analyzeFood
 };
 
 export default foodService;

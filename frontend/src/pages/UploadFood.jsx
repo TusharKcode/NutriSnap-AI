@@ -12,10 +12,11 @@ export default function UploadFood() {
 	});
 
 	const [imageFile, setImageFile] = useState(null);
-
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
+	const [isAnalyzing, setIsAnalyzing] = useState(false);
+	const [preview, setPreview] = useState(null);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -26,8 +27,46 @@ export default function UploadFood() {
 		}));
 	};
 
-	const handleImageChange = (e) => {
-		setImageFile(e.target.files[0]);
+	const handleImageChange = async (e) => {
+		const file = e.target.files[0];
+
+		if (!file) return;
+		if (file.size > 5 * 1024 * 1024) {
+			setError('Image size must be less than 5MB');
+			return;
+		}
+
+		setImageFile(file);
+
+		// Preview image
+		setPreview(URL.createObjectURL(file));
+
+		try {
+			setIsAnalyzing(true);
+
+			const response =
+				await foodService.analyzeFood(file);
+
+			if (
+				response?.status === 200 &&
+				response?.data?.analysis
+			) {
+				const ai = response.data.analysis;
+
+				setFormValues((prev) => ({
+					...prev,
+					foodName: ai.foodName || '',
+					calories: ai.calories || '',
+					protein: ai.protein || '',
+					carbs: ai.carbs || '',
+					fat: ai.fat || '',
+				}));
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setIsAnalyzing(false);
+		}
 	};
 
 	const handleSubmit = async (e) => {
@@ -123,6 +162,22 @@ export default function UploadFood() {
 							required
 							className="w-full border rounded-lg p-2"
 						/>
+						{preview && (
+							<div className="mt-4">
+								<img
+									src={preview}
+									alt="Food Preview"
+									className="w-full h-64 object-cover rounded-xl border"
+								/>
+							</div>
+						)}
+
+						{isAnalyzing && (
+							<div className="p-3 bg-blue-100 text-blue-700 rounded">
+								🤖 AI is analyzing your food...
+							</div>
+						)}
+
 					</div>
 
 					<div>
@@ -140,6 +195,7 @@ export default function UploadFood() {
 							<option value="lunch">Lunch</option>
 							<option value="dinner">Dinner</option>
 							<option value="snack">Snack</option>
+							<option value="sweet">Sweet</option>
 						</select>
 					</div>
 
