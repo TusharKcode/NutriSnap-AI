@@ -56,6 +56,26 @@ function Diary() {
 		);
 	}
 
+	const handleDelete = async (id) => {
+		try {
+			const response =
+				await foodService.deleteFood(id);
+
+			if (response?.status === 200) {
+				setEntries((prev) =>
+					prev.filter(
+						(entry) => entry._id !== id
+					)
+				);
+			}
+		} catch (error) {
+			console.error(
+				'Delete failed:',
+				error
+			);
+		}
+	};
+
 	return (
 		<div className="min-h-screen bg-gray-50 p-6">
 			<div className="max-w-6xl mx-auto">
@@ -88,6 +108,16 @@ function Diary() {
 								key={entry._id}
 								className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6"
 							>
+								<div className="flex justify-end">
+									<button
+										onClick={() =>
+											handleDelete(entry._id)
+										}
+										className="text-red-600 text-sm font-medium hover:text-red-800"
+									>
+										Delete
+									</button>
+								</div>
 								<h2 className="text-2xl font-bold mb-3">
 									🥗 {entry.foodName}
 								</h2>
