@@ -83,11 +83,27 @@ export async function deleteFood(id) {
     }
 }
 
+export async function updateFood(id, foodData) {
+	try {
+		const response = await api.put(
+			`/food/${id}`,
+			foodData,
+			getAuthConfig()
+		);
+
+		return response;
+	} catch (err) {
+		if (err.response) return err.response;
+		throw err;
+	}
+}
+
 const foodService = {
 	uploadFood,
 	getDiary,
 	analyzeFood,
-	deleteFood
+	deleteFood, 
+	updateFood,
 };
 
 export default foodService;

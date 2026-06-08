@@ -5,6 +5,16 @@ function Diary() {
 	const [entries, setEntries] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState('');
+	const [editingId, setEditingId] = useState(null);
+
+	const [editForm, setEditForm] = useState({
+		foodName: '',
+		calories: '',
+		protein: '',
+		carbs: '',
+		fat: '',
+		mealType: '',
+	});
 
 	const loadDiary = async () => {
 		setLoading(true);
@@ -76,6 +86,33 @@ function Diary() {
 		}
 	};
 
+	const handleEditSave = async () => {
+		try {
+			const response =
+				await foodService.updateFood(
+					editingId,
+					editForm
+				);
+
+			if (response?.status === 200) {
+				setEntries((prev) =>
+					prev.map((entry) =>
+						entry._id === editingId
+							? response.data.entry
+							: entry
+					)
+				);
+
+				setEditingId(null);
+			}
+		} catch (error) {
+			console.error(
+				'Update failed:',
+				error
+			);
+		}
+	};
+
 	return (
 		<div className="min-h-screen bg-gray-50 p-6">
 			<div className="max-w-6xl mx-auto">
@@ -109,6 +146,23 @@ function Diary() {
 								className="bg-white rounded-3xl shadow-lg border border-gray-100 p-6"
 							>
 								<div className="flex justify-end">
+									<button
+										onClick={() => {
+											setEditingId(entry._id);
+
+											setEditForm({
+												foodName: entry.foodName,
+												calories: entry.calories,
+												protein: entry.protein,
+												carbs: entry.carbs,
+												fat: entry.fat,
+												mealType: entry.mealType,
+											});
+										}}
+										className="text-blue-600 font-medium"
+									>
+										Edit
+									</button>
 									<button
 										onClick={() =>
 											handleDelete(entry._id)
@@ -165,6 +219,137 @@ function Diary() {
 					</div>
 				)}
 			</div>
+			{editingId && (
+				<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+					<div className="bg-white rounded-3xl p-6 w-full max-w-md">
+						<h2 className="text-2xl font-bold mb-4">
+							Edit Food Entry
+						</h2>
+
+						<div className="space-y-3">
+
+							<input
+								type="text"
+								placeholder="Food Name"
+								value={editForm.foodName}
+								onChange={(e) =>
+									setEditForm({
+										...editForm,
+										foodName: e.target.value,
+									})
+								}
+								className="w-full border rounded-lg p-2"
+							/>
+
+							<input
+								type="number"
+								placeholder="Calories"
+								value={editForm.calories}
+								onChange={(e) =>
+									setEditForm({
+										...editForm,
+										calories: e.target.value,
+									})
+								}
+								className="w-full border rounded-lg p-2"
+							/>
+
+							<input
+								type="number"
+								placeholder="Protein"
+								value={editForm.protein}
+								onChange={(e) =>
+									setEditForm({
+										...editForm,
+										protein: e.target.value,
+									})
+								}
+								className="w-full border rounded-lg p-2"
+							/>
+
+							<input
+								type="number"
+								placeholder="Carbs"
+								value={editForm.carbs}
+								onChange={(e) =>
+									setEditForm({
+										...editForm,
+										carbs: e.target.value,
+									})
+								}
+								className="w-full border rounded-lg p-2"
+							/>
+
+							<input
+								type="number"
+								placeholder="Fat"
+								value={editForm.fat}
+								onChange={(e) =>
+									setEditForm({
+										...editForm,
+										fat: e.target.value,
+									})
+								}
+								className="w-full border rounded-lg p-2"
+							/>
+
+							<select
+								value={editForm.mealType}
+								onChange={(e) =>
+									setEditForm({
+										...editForm,
+										mealType: e.target.value,
+									})
+								}
+								className="w-full border rounded-lg p-2"
+							>
+								<option value="breakfast">
+									Breakfast
+								</option>
+
+								<option value="lunch">
+									Lunch
+								</option>
+
+								<option value="dinner">
+									Dinner
+								</option>
+
+								<option value="snack">
+									Snack
+								</option>
+
+								<option value="snack">
+									Snack
+								</option>
+								
+								<option value="sweet">
+									Sweet
+								</option>
+							</select>
+
+							<div className="flex gap-3 pt-2">
+								<button
+									onClick={handleEditSave}
+									className="flex-1 bg-blue-600 text-white py-2 rounded-xl"
+								>
+									Save
+								</button>
+
+								<button
+									onClick={() =>
+										setEditingId(null)
+									}
+									className="flex-1 bg-gray-300 py-2 rounded-xl"
+								>
+									Cancel
+								</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

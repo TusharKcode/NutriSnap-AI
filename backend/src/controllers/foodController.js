@@ -187,9 +187,60 @@ const deleteFoodEntry = async (req, res) => {
     }
 };
 
+const updateFoodEntry = async (req, res) => {
+    try {
+        const user = req.user;
+        const { id } = req.params;
+
+        const entry = await FoodEntry.findOne({
+            _id: id,
+            userId: user._id,
+        });
+
+        if (!entry) {
+            return res.status(404).json({
+                message: 'Food entry not found',
+            });
+        }
+
+        const {
+            foodName,
+            calories,
+            protein,
+            carbs,
+            fat,
+            mealType,
+        } = req.body;
+
+        entry.foodName = foodName;
+        entry.calories = calories;
+        entry.protein = protein;
+        entry.carbs = carbs;
+        entry.fat = fat;
+        entry.mealType = mealType;
+
+        await entry.save();
+
+        res.status(200).json({
+            success: true,
+            entry,
+        });
+    } catch (error) {
+        console.error(
+            '[FoodController] updateFoodEntry failed:',
+            error
+        );
+
+        res.status(500).json({
+            message: 'Server error while updating entry',
+        });
+    }
+};
+
 module.exports = {
     uploadFood,
     getDiary,
     analyzeFoodImage,
-    deleteFoodEntry
+    deleteFoodEntry,
+    updateFoodEntry
 };
