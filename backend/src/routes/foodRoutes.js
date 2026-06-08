@@ -1,5 +1,5 @@
 const express = require('express');
-const { uploadFood, getDiary, analyzeFoodImage } = require('../controllers/foodController');
+const { uploadFood, getDiary, analyzeFoodImage, deleteFoodEntry } = require('../controllers/foodController');
 const protect = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -19,6 +19,12 @@ router.post(
     protect,
     upload.single('image'),
     analyzeFoodImage
+);
+
+router.delete(
+    '/:id',
+    protect,
+    deleteFoodEntry
 );
 
 module.exports = router;

@@ -69,10 +69,25 @@ export async function analyzeFood(imageFile) {
 	}
 }
 
+export async function deleteFood(id) {
+    try {
+        const response = await api.delete(
+            `/food/${id}`,
+            getAuthConfig()
+        );
+
+        return response;
+    } catch (err) {
+        if (err.response) return err.response;
+        throw err;
+    }
+}
+
 const foodService = {
 	uploadFood,
 	getDiary,
-	analyzeFood
+	analyzeFood,
+	deleteFood
 };
 
 export default foodService;

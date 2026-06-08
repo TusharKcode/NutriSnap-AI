@@ -153,8 +153,43 @@ const analyzeFoodImage = async (req, res) => {
     }
 };
 
+const deleteFoodEntry = async (req, res) => {
+    try {
+        const user = req.user;
+        const { id } = req.params;
+
+        const entry = await FoodEntry.findOne({
+            _id: id,
+            userId: user._id,
+        });
+
+        if (!entry) {
+            return res.status(404).json({
+                message: 'Food entry not found',
+            });
+        }
+
+        await FoodEntry.findByIdAndDelete(id);
+
+        res.status(200).json({
+            success: true,
+            message: 'Food entry deleted successfully',
+        });
+    } catch (error) {
+        console.error(
+            '[FoodController] deleteFoodEntry failed:',
+            error
+        );
+
+        res.status(500).json({
+            message: 'Server error while deleting food entry',
+        });
+    }
+};
+
 module.exports = {
     uploadFood,
     getDiary,
-    analyzeFoodImage
+    analyzeFoodImage,
+    deleteFoodEntry
 };
