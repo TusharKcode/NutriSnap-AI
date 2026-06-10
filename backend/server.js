@@ -7,6 +7,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const foodRoutes = require('./src/routes/foodRoutes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const waterRoutes =  require('./src/routes/waterRoutes.js');
 
 const app = express();
 const path = require('path')
@@ -27,7 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/user', userRoutes);
-
+app.use('/api/water', waterRoutes);
 
 const PORT = process.env.PORT;
 
