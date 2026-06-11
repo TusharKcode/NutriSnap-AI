@@ -6,15 +6,15 @@ function WaterTrackerCard() {
 
     const [totalWater, setTotalWater] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [entries, setEntries] = useState([]);
 
     const loadWater = async () => {
         try {
             const res = await waterService.getTodayWater();
 
             if (res.status === 200) {
-                setTotalWater(
-                    res.data.totalWater || 0
-                );
+                setEntries(res.data.entries || []);
+                setTotalWater(res.data.totalWater || 0);
             }
         } catch (error) {
             console.error(error);
@@ -43,6 +43,14 @@ function WaterTrackerCard() {
         (totalWater / WATER_GOAL) * 100,
         100
     );
+
+    const handleDelete = async (id) => {
+    const res = await waterService.deleteWater(id);
+
+    if (res.status === 200) {
+            loadWater();
+        }
+    };
 
     if (loading) {
         return (
@@ -103,6 +111,40 @@ function WaterTrackerCard() {
                     +1 L
                 </button>
 
+            </div>
+
+            <div className="mt-6">
+                <h3 className="font-medium mb-2">
+                    Today's Entries
+                </h3>
+
+                {entries.length === 0 ? (
+                    <p className="text-sm text-gray-500">
+                        No water logged today
+                    </p>
+                ) : (
+                    <div className="space-y-2">
+                        {entries.map((entry) => (
+                            <div
+                                key={entry._id}
+                                className="flex justify-between items-center border rounded p-2"
+                            >
+                                <span>
+                                    💧 {entry.amount} ml
+                                </span>
+
+                                <button
+                                    onClick={() =>
+                                        handleDelete(entry._id)
+                                    }
+                                    className="text-red-500 hover:text-red-700"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
         </div>
