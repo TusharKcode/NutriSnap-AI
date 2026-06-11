@@ -10,6 +10,7 @@ import FoodList from '../components/FoodList';
 import foodService from '../services/foodService';
 import MacroRings from '../components/MacroRings';
 import WaterTrackerCard from '../components/WaterTrackerCard';
+import WeightTrackerCard from '../components/WeightTrackerCard';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -263,6 +264,10 @@ function Dashboard() {
                                 <FoodList
                                     data={recentFoods}
                                 />
+                            </div>
+
+                            <div className="mt-6 ">
+                                <WeightTrackerCard />
                             </div>
                         </div>
                     </div>
