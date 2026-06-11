@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 70,
         },
+        waterGoal: {
+            type: Number,
+            default: 3000
+        },
         streakCount: {
             type: Number,
             default: 0,

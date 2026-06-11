@@ -1,20 +1,30 @@
 import { useEffect, useState } from 'react';
 import waterService from '../services/waterService';
+import userService from '../services/userService';
 
 function WaterTrackerCard() {
-    const WATER_GOAL = 3000;
 
     const [totalWater, setTotalWater] = useState(0);
     const [loading, setLoading] = useState(true);
     const [entries, setEntries] = useState([]);
+    const [waterGoal, setWaterGoal] = useState(3000);
 
     const loadWater = async () => {
         try {
-            const res = await waterService.getTodayWater();
+            const [waterRes, goalsRes] = await Promise.all([
+                waterService.getTodayWater(),
+                userService.getGoals(),
+            ]);
 
-            if (res.status === 200) {
-                setEntries(res.data.entries || []);
-                setTotalWater(res.data.totalWater || 0);
+            if (waterRes.status === 200) {
+                setEntries(waterRes.data.entries || []);
+                setTotalWater(waterRes.data.totalWater || 0);
+            }
+
+            if (goalsRes.status === 200) {
+                setWaterGoal(
+                    goalsRes.data.goals.waterGoal || 3000
+                );
             }
         } catch (error) {
             console.error(error);
@@ -40,7 +50,7 @@ function WaterTrackerCard() {
     };
 
     const progress = Math.min(
-        (totalWater / WATER_GOAL) * 100,
+        (totalWater / waterGoal) * 100,
         100
     );
 
@@ -74,7 +84,7 @@ function WaterTrackerCard() {
                     </span>
 
                     <span>
-                        {WATER_GOAL} ml
+                        {waterGoal} ml
                     </span>
                 </div>
 
