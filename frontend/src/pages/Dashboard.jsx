@@ -9,6 +9,7 @@ import WeeklyChart from '../components/WeeklyChart';
 import FoodList from '../components/FoodList';
 import foodService from '../services/foodService';
 import MacroRings from '../components/MacroRings';
+import WaterTrackerCard from '../components/WaterTrackerCard';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -163,6 +164,8 @@ function Dashboard() {
                     <MacroRings
                         goals={goals}
                     />
+
+                    <WaterTrackerCard />
 
                     <div className="grid gap-6 lg:grid-cols-2">
                         <div className="rounded-2xl bg-white p-6 shadow-sm border border-gray-200">
