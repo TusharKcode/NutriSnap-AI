@@ -8,6 +8,7 @@ function Goals() {
 		carbGoal: '',
 		fatGoal: '',
 		waterGoal: '',
+		weightGoal: ''
 	});
 
 	const [loading, setLoading] = useState(true);
@@ -138,6 +139,15 @@ function Goals() {
 					value={goals.waterGoal}
 					onChange={handleChange}
 					placeholder="Water Goal (ml)"
+					className="w-full border p-3 rounded"
+				/>
+
+				<input
+					type="number"
+					name="weightGoal"
+					value={goals.weightGoal}
+					onChange={handleChange}
+					placeholder="Weight Goal (kg)"
 					className="w-full border p-3 rounded"
 				/>
 

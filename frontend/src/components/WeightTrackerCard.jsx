@@ -1,20 +1,32 @@
 import { useEffect, useState } from 'react';
 import weightService from '../services/weightService';
+import userService from '../services/userService';
+import WeightChart from './WeightChart';
 
 function WeightTrackerCard() {
 
     const [weight, setWeight] = useState('');
     const [entries, setEntries] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [weightGoal, setWeightGoal] = useState(70);
+    
 
     const loadWeights = async () => {
         try {
-            const res =
-                await weightService.getWeightHistory();
+            const [weightRes, goalsRes] = await Promise.all([
+                    weightService.getWeightHistory(),
+                    userService.getGoals(),
+                ]);
 
-            if (res.status === 200) {
+            if (weightRes.status === 200) {
                 setEntries(
-                    res.data.entries || []
+                    weightRes.data.entries || []
+                );
+            }
+
+            if (goalsRes.status === 200) {
+                setWeightGoal(
+                    goalsRes.data.goals.weightGoal || 70
                 );
             }
 
@@ -65,6 +77,16 @@ function WeightTrackerCard() {
             ? entries[0].weight
             : '-';
 
+    const weightDifference =
+        latestWeight !== '-'
+            ? (
+                latestWeight -
+                weightGoal
+            ).toFixed(1)
+            : null;
+
+    const isAboveGoal = weightDifference > 0;
+
     if (loading) {
         return (
             <div className="rounded-2xl bg-white p-6 shadow-sm border">
@@ -88,6 +110,36 @@ function WeightTrackerCard() {
                 <p className="text-3xl font-bold">
                     {latestWeight} kg
                 </p>
+            </div>
+
+            <div className="mb-4">
+
+                <p className="text-sm text-gray-500">
+                    Goal Weight
+                </p>
+
+                <p className="font-semibold">
+                    {weightGoal} kg
+                </p>
+
+            </div>
+
+            <div className="mb-4">
+
+                <p className="text-sm text-gray-500">
+                    Difference
+                </p>
+
+                <p
+                    className={`font-semibold ${
+                        isAboveGoal
+                            ? 'text-red-500'
+                            : 'text-green-500'
+                    }`}
+                >
+                    {weightDifference} kg
+                </p>
+
             </div>
 
             <form
@@ -116,6 +168,12 @@ function WeightTrackerCard() {
                 </button>
 
             </form>
+
+            <div className="mb-6">
+                <WeightChart
+                    entries={entries}
+                />
+            </div>
 
             <div className="space-y-2">
 

@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import SummaryCard from '../components/SummaryCard';
 import StreakCard from "../components/StreakCard";
 import WeeklyChart from '../components/WeeklyChart';
+import WeightChart from './WeightChart';
 import FoodList from '../components/FoodList';
 import foodService from '../services/foodService';
 import MacroRings from '../components/MacroRings';
@@ -271,7 +272,9 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    
+                    <WeightChart
+                        entries={entries}
+                    />
                 </>
             )}
         </div>

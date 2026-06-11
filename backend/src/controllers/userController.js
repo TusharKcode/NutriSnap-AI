@@ -45,7 +45,7 @@ const updateGoals = async (req, res) => {
             return res.status(401).json({ message: 'User not authenticated' });
         }
 
-        const { calorieGoal, proteinGoal, carbGoal, fatGoal, waterGoal } = req.body;
+        const { calorieGoal, proteinGoal, carbGoal, fatGoal, waterGoal, weightGoal } = req.body;
 
         // Validate that at least one goal is provided
         if (
@@ -53,7 +53,8 @@ const updateGoals = async (req, res) => {
             proteinGoal === undefined &&
             carbGoal === undefined &&
             fatGoal === undefined &&
-            waterGoal === undefined
+            waterGoal === undefined &&
+            weightGoal === undefined
         ) {
             return res.status(400).json({
                 message: 'At least one goal field must be provided',
@@ -138,6 +139,29 @@ const updateGoals = async (req, res) => {
 
             user.waterGoal = waterGoal;
         }
+        
+        // Validate Weight Goal
+        if (weightGoal !== undefined) {
+            if (typeof weightGoal !== 'number') {
+                return res.status(400).json({
+                    message: 'weightGoal must be a number',
+                });
+            }
+
+            if (weightGoal < 20) {
+                return res.status(400).json({
+                    message: 'weightGoal too low',
+                });
+            }
+
+            if (weightGoal > 500) {
+                return res.status(400).json({
+                    message: 'weightGoal too high',
+                });
+            }
+
+            user.weightGoal = weightGoal;
+        }
 
         // Save updated user
         await user.save();
@@ -176,6 +200,7 @@ const getGoals = async (req, res) => {
                 carbGoal: user.carbGoal,
                 fatGoal: user.fatGoal,
                 waterGoal: user.waterGoal,
+                weightGoal: user.weightGoal,
             },
         });
     } catch (error) {

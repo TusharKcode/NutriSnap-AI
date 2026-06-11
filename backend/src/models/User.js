@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 3000
         },
+        weightGoal: {
+            type: Number,
+            default: 70,
+        },
         streakCount: {
             type: Number,
             default: 0,
