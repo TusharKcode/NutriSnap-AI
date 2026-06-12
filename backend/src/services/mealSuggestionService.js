@@ -8,32 +8,36 @@ async function generateMealSuggestions(data) {
     });
 
     const prompt = `
-You are a nutrition coach.
+You are an expert nutrition coach.
 
-Daily Goals:
+User Goals:
 Calories: ${data.goals.calories}
 Protein: ${data.goals.protein}
 Carbs: ${data.goals.carbs}
 Fat: ${data.goals.fat}
 
-Current Intake:
+Current Intake Today:
 Calories: ${data.current.calories}
 Protein: ${data.current.protein}
 Carbs: ${data.current.carbs}
 Fat: ${data.current.fat}
 
-Recent Meals:
-${data.recentMeals.join(", ")}
+Recent Foods:
+${data.recentMeals.join(', ')}
 
-Suggest:
+Provide:
 
-1. Breakfast
-2. Lunch
-3. Dinner
-4. Healthy Snack
-5. Sweets
+Breakfast
+Lunch
+Dinner
+Snack
 
-Keep response concise.
+For each recommendation:
+- Food name
+- Short reason
+
+Keep response under 200 words.
+Use simple formatting.
 `;
 
     const result = await model.generateContent(prompt);

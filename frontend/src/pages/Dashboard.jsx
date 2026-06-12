@@ -11,6 +11,7 @@ import foodService from '../services/foodService';
 import MacroRings from '../components/MacroRings';
 import WaterTrackerCard from '../components/WaterTrackerCard';
 import WeightTrackerCard from '../components/WeightTrackerCard';
+import AIMealSuggestionsCard from '../components/AIMealSuggestionsCard';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -268,6 +269,10 @@ function Dashboard() {
 
                             <div className="mt-6 ">
                                 <WeightTrackerCard />
+                            </div>
+
+                            <div className="mt-6">
+                                <AIMealSuggestionsCard />
                             </div>
                         </div>
                     </div>
