@@ -44,89 +44,92 @@ function Profile() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gray-50 p-6">
+		<>
 			<AppNavbar/>
-			<div className="max-w-4xl mx-auto">
+			<div className="min-h-screen bg-gray-50 p-6">
+				<div className="max-w-4xl mx-auto">
 
-				<h1 className="text-4xl font-bold mb-8">
-					My Profile
-				</h1>
+					<h1 className="text-4xl font-bold mb-8">
+						My Profile
+					</h1>
 
-				{error && (
-					<div className="mb-6 bg-red-100 border border-red-300 text-red-700 p-4 rounded-lg">
-						{error}
-					</div>
-				)}
+					{error && (
+						<div className="mb-6 bg-red-100 border border-red-300 text-red-700 p-4 rounded-lg">
+							{error}
+						</div>
+					)}
 
-				{profile && (
-					<div className="bg-white rounded-3xl shadow-lg p-8">
+					{profile && (
+						<div className="bg-white rounded-3xl shadow-lg p-8">
 
-						<div className="space-y-6">
+							<div className="space-y-6">
 
-							<div>
-								<p className="text-sm text-gray-500">
-									Name
-								</p>
+								<div>
+									<p className="text-sm text-gray-500">
+										Name
+									</p>
 
-								<p className="text-xl font-semibold">
-									{profile.name}
-								</p>
-							</div>
+									<p className="text-xl font-semibold">
+										{profile.name}
+									</p>
+								</div>
 
-							<div>
-								<p className="text-sm text-gray-500">
-									Email
-								</p>
+								<div>
+									<p className="text-sm text-gray-500">
+										Email
+									</p>
 
-								<p className="text-xl font-semibold">
-									{profile.email}
-								</p>
-							</div>
+									<p className="text-xl font-semibold">
+										{profile.email}
+									</p>
+								</div>
 
-							<div>
-								<p className="text-sm text-gray-500">
-									Current Streak
-								</p>
+								<div>
+									<p className="text-sm text-gray-500">
+										Current Streak
+									</p>
 
-								<p className="text-xl font-semibold">
-									🔥 {profile.streakCount || 0} Days
-								</p>
-							</div>
+									<p className="text-xl font-semibold">
+										🔥 {profile.streakCount || 0} Days
+									</p>
+								</div>
 
-							<div className="border-t pt-6">
+								<div className="border-t pt-6">
 
-								<h2 className="text-2xl font-bold mb-4">
-									Nutrition Goals
-								</h2>
+									<h2 className="text-2xl font-bold mb-4">
+										Nutrition Goals
+									</h2>
 
-								<div className="grid md:grid-cols-2 gap-4">
+									<div className="grid md:grid-cols-2 gap-4">
 
-									<div className="bg-orange-50 p-4 rounded-xl">
-										Calories Goal:
-										<strong className="ml-2">
-											{profile.calorieGoal || 0}
-										</strong>
-									</div>
+										<div className="bg-orange-50 p-4 rounded-xl">
+											Calories Goal:
+											<strong className="ml-2">
+												{profile.calorieGoal || 0}
+											</strong>
+										</div>
 
-									<div className="bg-blue-50 p-4 rounded-xl">
-										Protein Goal:
-										<strong className="ml-2">
-											{profile.proteinGoal || 0} g
-										</strong>
-									</div>
+										<div className="bg-blue-50 p-4 rounded-xl">
+											Protein Goal:
+											<strong className="ml-2">
+												{profile.proteinGoal || 0} g
+											</strong>
+										</div>
 
-									<div className="bg-green-50 p-4 rounded-xl">
-										Carbs Goal:
-										<strong className="ml-2">
-											{profile.carbGoal || 0} g
-										</strong>
-									</div>
+										<div className="bg-green-50 p-4 rounded-xl">
+											Carbs Goal:
+											<strong className="ml-2">
+												{profile.carbGoal || 0} g
+											</strong>
+										</div>
 
-									<div className="bg-yellow-50 p-4 rounded-xl">
-										Fat Goal:
-										<strong className="ml-2">
-											{profile.fatGoal || 0} g
-										</strong>
+										<div className="bg-yellow-50 p-4 rounded-xl">
+											Fat Goal:
+											<strong className="ml-2">
+												{profile.fatGoal || 0} g
+											</strong>
+										</div>
+
 									</div>
 
 								</div>
@@ -134,12 +137,11 @@ function Profile() {
 							</div>
 
 						</div>
+					)}
 
-					</div>
-				)}
-
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 
