@@ -12,7 +12,7 @@ import MacroRings from '../components/MacroRings';
 import WaterTrackerCard from '../components/WaterTrackerCard';
 import WeightTrackerCard from '../components/WeightTrackerCard';
 import AIMealSuggestionsCard from '../components/AIMealSuggestionsCard';
-import { FaFire, FaDrumstickBite, FaBreadSlice, FaCheese, FaTint, FaWeight, FaBullseye, FaRobot, FaChartLine } from 'react-icons/fa';
+import { FaFire, FaDrumstickBite, FaBreadSlice, FaCheese, FaBullseye, FaRobot, FaChartLine } from 'react-icons/fa';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -189,17 +189,9 @@ function Dashboard() {
 
                         {/* Water + Weight */}
                         <div className="grid gap-6 lg:grid-cols-2">
-                            <WaterTrackerCard
-                                icon={
-                                    <FaTint className="text-blue-500" />
-                                }
-                            />
+                            <WaterTrackerCard />
 
-                            <WeightTrackerCard
-                                icon={
-                                    <FaWeight className="text-purple-500" />
-                                }
-                            />
+                            <WeightTrackerCard />
                         </div>
 
                         {/* Goal Progress + Stats */}
@@ -336,10 +328,12 @@ function Dashboard() {
                             <WeeklyChart
                                 data={weeklyData}
                             />
-
-                            <FoodList
-                                data={recentFoods}
-                            />
+                            
+                            <div className="float-card">
+                                <FoodList
+                                    data={recentFoods}
+                                />
+                            </div>
 
                         </div>
                         
