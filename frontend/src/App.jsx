@@ -9,12 +9,14 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Goals from "./pages/Goals";
 import Profile from "./pages/Profile";
 import Home from './pages/Home';
+import About from './pages/About';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route

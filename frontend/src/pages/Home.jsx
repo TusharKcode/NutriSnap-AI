@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -141,6 +142,7 @@ function Home() {
                     </Link>
                 </div>
             </section>
+            <Footer />  
         </div>
     );
 }
