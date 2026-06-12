@@ -31,6 +31,7 @@ Breakfast
 Lunch
 Dinner
 Snack
+Sweet
 
 For each recommendation:
 - Food name
