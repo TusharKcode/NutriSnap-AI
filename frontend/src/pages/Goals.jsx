@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import userService from '../services/userService';
+import AppNavbar from '../components/AppNavbar';
 
 function Goals() {
 	const [goals, setGoals] = useState({
@@ -79,6 +80,7 @@ function Goals() {
 
 	return (
 		<div className="max-w-2xl mx-auto p-6">
+			<AppNavbar/>
 			<h1 className="text-3xl font-bold mb-6">
 				Nutrition Goals
 			</h1>

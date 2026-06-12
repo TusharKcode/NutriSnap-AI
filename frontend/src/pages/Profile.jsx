@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import userService from '../services/userService';
+import AppNavbar from '../components/AppNavbar';
 
 function Profile() {
 	const [profile, setProfile] = useState(null);
@@ -44,6 +45,7 @@ function Profile() {
 
 	return (
 		<div className="min-h-screen bg-gray-50 p-6">
+			<AppNavbar/>
 			<div className="max-w-4xl mx-auto">
 
 				<h1 className="text-4xl font-bold mb-8">

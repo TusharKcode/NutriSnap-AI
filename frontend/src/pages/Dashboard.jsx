@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import dashboardService from "../services/dashboardService";
-import Navbar from '../components/Navbar';
+import AppNavbar from '../components/AppNavbar';
 import SummaryCard from '../components/SummaryCard';
 import StreakCard from "../components/StreakCard";
 import WeeklyChart from '../components/WeeklyChart';
@@ -133,7 +133,7 @@ function Dashboard() {
                 </button>
             </div>
 
-            <Navbar/>
+            <AppNavbar/>
 
             {isLoading ? (
                 <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-500">

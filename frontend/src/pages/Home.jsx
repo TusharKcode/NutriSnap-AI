@@ -1,9 +1,11 @@
 import Footer from '../components/Footer';
+import PublicNavbar from '../components/PublicNavbar';
 import { Link } from "react-router-dom";
 
 function Home() {
     return (
         <div className="min-h-screen bg-gray-50">
+            <PublicNavbar />
         {/* Hero Section */}
 
             <section className="max-w-7xl mx-auto px-6 py-20">

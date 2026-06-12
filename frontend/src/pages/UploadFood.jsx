@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import foodService from '../services/foodService';
+import AppNavbar from '../components/AppNavbar';
 
 export default function UploadFood() {
 	const [formValues, setFormValues] = useState({
@@ -127,6 +128,7 @@ export default function UploadFood() {
 
 	return (
 		<div className="min-h-screen bg-orange-50 py-10 px-4">
+			<AppNavbar/>
 			<div className="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl">
 
 				<h1 className="text-3xl font-bold mb-6">

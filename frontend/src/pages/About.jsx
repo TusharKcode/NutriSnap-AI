@@ -1,8 +1,10 @@
 import Footer from '../components/Footer';
+import PublicNavbar from '../components/PublicNavbar';
 
 function About() {
     return (
         <>
+            <PublicNavbar />
             <div className="max-w-6xl mx-auto px-6 py-16">
 
                 <h1 className="text-5xl font-bold mb-8">

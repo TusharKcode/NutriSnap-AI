@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import PublicNavbar from '../components/PublicNavbar';
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -48,6 +49,7 @@ export default function Login() {
 
 	return (
 		<div className="flex items-center justify-center min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 px-4 sm:px-6 lg:px-8">
+			<PublicNavbar />
 			<div className="w-full max-w-md">
 				{/* Card */}
 				<div className="bg-white rounded-lg shadow-2xl p-8 space-y-6">
