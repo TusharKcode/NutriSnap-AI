@@ -38,7 +38,7 @@ app.use("/api/water", waterRoutes);
 app.use("/api/weight", weightRoutes);
 app.use('/api/ai', aiRoutes);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 if (!PORT) {
     console.error("PORT environment variable is not defined");
