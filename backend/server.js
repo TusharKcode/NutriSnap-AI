@@ -14,7 +14,15 @@ const aiRoutes = require("./src/routes/aiRoutes");
 const app = express();
 const path = require("path");
 
-app.use(cors());
+app.use(
+    cors({
+        origin: [
+            "http://localhost:5173",
+            "YOUR_FRONTEND_URL"
+        ],
+        credentials: true
+    })
+);
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 

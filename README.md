@@ -260,6 +260,8 @@ npm run dev
 - [ ] Native Mobile App Wrappers (iOS & Android)
 - [ ] Gamified Social Sharing, Group Pools, and Interactive Leaderboards
 - [ ] Transactional Push Notifications for Fluid and Meal Alerts
+- [ ] Cloudinary integration
+- [ ] AWS S3 integration
 
 ---
 
