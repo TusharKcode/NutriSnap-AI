@@ -1,20 +1,14 @@
 const User = require('../models/User');
 
-/**
- * Get current user profile
- * GET /api/user/profile
- */
 const getUserProfile = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
 
         const userResponse = user.toObject();
         delete userResponse.password;
-
         res.json({
             success: true,
             user: userResponse,
@@ -25,28 +19,13 @@ const getUserProfile = async (req, res) => {
     }
 };
 
-/**
- * Update user nutritional goals
- * PUT /api/user/goals
- * 
- * Request body:
- * {
- *   "calorieGoal": 2500,
- *   "proteinGoal": 150,
- *   "carbGoal": 300,
- *   "fatGoal": 80
- * }
- */
 const updateGoals = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
-
         const { calorieGoal, proteinGoal, carbGoal, fatGoal, waterGoal, weightGoal } = req.body;
-
         // Validate that at least one goal is provided
         if (
             calorieGoal === undefined &&
@@ -180,10 +159,6 @@ const updateGoals = async (req, res) => {
     }
 };
 
-/**
- * Get current user goals
- * GET /api/user/goals
- */
 const getGoals = async (req, res) => {
     try {
         const user = req.user;
@@ -209,8 +184,4 @@ const getGoals = async (req, res) => {
     }
 };
 
-module.exports = {
-    getUserProfile,
-    updateGoals,
-    getGoals,
-};
+module.exports = { getUserProfile, updateGoals, getGoals,};

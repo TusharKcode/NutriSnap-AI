@@ -4,7 +4,6 @@ const analyzeFood = require('../services/foodAnalysisService');
 const uploadFood = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({
                 message: 'Unauthorized',
@@ -12,7 +11,6 @@ const uploadFood = async (req, res) => {
         }
 
         const imageFile = req.file;
-
         if (!imageFile) {
             return res.status(400).json({
                 message: 'Image file is required',
@@ -66,7 +64,6 @@ const uploadFood = async (req, res) => {
                 ? mealType.toLowerCase()
                 : undefined,
         });
-
         await entry.save();
 
         res.status(201).json({
@@ -86,7 +83,6 @@ const uploadFood = async (req, res) => {
 const getDiary = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({
                 message: 'Unauthorized',
@@ -98,7 +94,6 @@ const getDiary = async (req, res) => {
         }).sort({
             createdAt: -1,
         });
-
         res.json({
             success: true,
             entries,
@@ -115,7 +110,6 @@ const getDiary = async (req, res) => {
 const analyzeFoodImage = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({
                 message: 'Unauthorized',
@@ -123,7 +117,6 @@ const analyzeFoodImage = async (req, res) => {
         }
 
         const imageFile = req.file;
-
         if (!imageFile) {
             return res.status(400).json({
                 message: 'Image file is required',
@@ -157,7 +150,6 @@ const deleteFoodEntry = async (req, res) => {
     try {
         const user = req.user;
         const { id } = req.params;
-
         const entry = await FoodEntry.findOne({
             _id: id,
             userId: user._id,
@@ -168,7 +160,6 @@ const deleteFoodEntry = async (req, res) => {
                 message: 'Food entry not found',
             });
         }
-
         await FoodEntry.findByIdAndDelete(id);
 
         res.status(200).json({
@@ -191,7 +182,6 @@ const updateFoodEntry = async (req, res) => {
     try {
         const user = req.user;
         const { id } = req.params;
-
         const entry = await FoodEntry.findOne({
             _id: id,
             userId: user._id,
@@ -203,15 +193,7 @@ const updateFoodEntry = async (req, res) => {
             });
         }
 
-        const {
-            foodName,
-            calories,
-            protein,
-            carbs,
-            fat,
-            mealType,
-        } = req.body;
-
+        const { foodName, calories, protein, carbs, fat, mealType, } = req.body;
         entry.foodName = foodName;
         entry.calories = calories;
         entry.protein = protein;
@@ -237,10 +219,4 @@ const updateFoodEntry = async (req, res) => {
     }
 };
 
-module.exports = {
-    uploadFood,
-    getDiary,
-    analyzeFoodImage,
-    deleteFoodEntry,
-    updateFoodEntry
-};
+module.exports = { uploadFood, getDiary, analyzeFoodImage, deleteFoodEntry, updateFoodEntry};

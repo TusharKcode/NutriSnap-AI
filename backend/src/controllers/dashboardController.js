@@ -3,7 +3,6 @@ const FoodEntry = require('../models/FoodEntry');
 const getDashboardSummary = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
@@ -44,7 +43,6 @@ const getDashboardSummary = async (req, res) => {
 const getWeeklyStats = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
@@ -81,30 +79,34 @@ const getWeeklyStats = async (req, res) => {
 const getStreakStats = async (req, res) => {
     try {
         const user = req.user;
-
         if (!user) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
-
         const entries = await FoodEntry.find({ userId: user._id }).sort({ createdAt: 1 });
 
         // Get unique dates with entries
         const uniqueDates = [...new Set(entries.map(entry =>
             entry.createdAt.toISOString().slice(0, 10)
         ))].sort();
-
+        
         const totalTrackedDays = uniqueDates.length;
 
         // Calculate current streak
         let currentStreak = 0;
-        if (uniqueDates.length > 0) {
-            const today = new Date().toISOString().slice(0, 10);
-            let checkDate = today;
 
-            for (let i = uniqueDates.length - 1; i >= 0; i--) {
-                if (uniqueDates[i] === checkDate) {
+        if (uniqueDates.length > 0) {
+            currentStreak = 1;
+
+            for (let i = uniqueDates.length - 1; i > 0; i--) {
+                const current = new Date(uniqueDates[i]);
+                const previous = new Date(uniqueDates[i - 1]);
+
+                const diffDays = Math.round(
+                    (current - previous) / (1000 * 60 * 60 * 24)
+                );
+
+                if (diffDays === 1) {
                     currentStreak++;
-                    checkDate = new Date(new Date(checkDate).getTime() - 86400000).toISOString().slice(0, 10);
                 } else {
                     break;
                 }
@@ -194,9 +196,4 @@ const getGoalProgress = async (req, res) => {
     }
 };
 
-module.exports = {
-    getDashboardSummary,
-    getWeeklyStats,
-    getStreakStats,
-    getGoalProgress,
-};
+module.exports = { getDashboardSummary, getWeeklyStats, getStreakStats, getGoalProgress,};
