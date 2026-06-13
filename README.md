@@ -1,4 +1,4 @@
-<![CDATA[# 🥗 NutriSnapAI
+# 🥗 NutriSnapAI
 
 > **AI-powered nutrition tracking platform** — Develop healthier eating habits through automated food analysis, calorie tracking, hydration monitoring, weight logging, goal management, and intelligent meal recommendations.
 
@@ -290,4 +290,3 @@ NutriSnapAI was engineered as an innovative, highly responsive Full Stack AI Nut
 ## 📄 License
 
 This software repository is curated and maintained exclusively for educational, engineering portfolio validation, and system engineering competition tracks.
-]]>
