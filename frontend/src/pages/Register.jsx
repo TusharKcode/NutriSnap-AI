@@ -52,19 +52,33 @@ export default function Register() {
 	return (
 		<>
 			<PublicNavbar />
-			<div className="flex items-center justify-center min-h-screen bg-linear-to-br from-green-50 to-emerald-100 px-4 sm:px-6 lg:px-8">
+			<div className="flex items-center justify-center min-h-screen bg-linear-to-br from-green-50 via-emerald-50 to-cyan-100 px-4 relative overflow-hidden sm:px-6 lg:px-8">
 				<div className="w-full max-w-md">
+					<div className="absolute top-20 left-20 h-56 w-56 bg-emerald-300/20 rounded-full blur-3xl animate-pulse" />
+					<div className="absolute bottom-20 right-20 h-72 w-72 bg-cyan-300/20 rounded-full blur-3xl animate-pulse" />
 					{/* Card */}
-					<div className="bg-white rounded-lg shadow-2xl p-8 space-y-6">
+					<div className="bg-white/80 border border-white/30 backdrop-blur-xl rounded-3xl shadow-2xl p-8 space-y-6 animate-fadeUp">
 						{/* Header */}
 						<div className="text-center">
-							<h1 className="text-3xl font-bold text-gray-900">NutriSnap</h1>
+							<div className="flex flex-col items-center">
+								<div
+									className="h6 w-16 rounded-2xl bg-linear-to-r from-emerald-500 to-cyan-500 text-white flex items-center justify-center	shadow-xl mb-3 animate-float"
+								>
+									🥗
+								</div>
+
+								<h1
+									className="text-3xl font-black bg-linear-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent"
+								>
+									NutriSnapAI
+								</h1>
+							</div>
 							<p className="text-gray-600 mt-2 text-sm">Create your account</p>
 						</div>
 
 						{/* Error Message */}
 						{errorMessage && (
-							<div className="bg-red-50 border border-red-200 rounded-lg p-3">
+							<div className="bg-red-50 border border-red-200 rounded-2xl p-3 animate-shake">
 								<p className="text-red-700 text-sm">{errorMessage}</p>
 							</div>
 						)}
@@ -84,7 +98,7 @@ export default function Register() {
 									onChange={handleChange}
 									placeholder="John Doe"
 									required
-									className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+									className="w-full px-4 py-3 border border-gray-200 rounded-2xl bg-white/70 backdrop-blur-md focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all"
 								/>
 							</div>
 
@@ -101,7 +115,7 @@ export default function Register() {
 									onChange={handleChange}
 									placeholder="you@example.com"
 									required
-									className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+									className="w-full px-4 py-3 border border-gray-200 rounded-2xl bg-white/70 backdrop-blur-md focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all"
 								/>
 							</div>
 
@@ -118,7 +132,7 @@ export default function Register() {
 									onChange={handleChange}
 									placeholder="••••••••"
 									required
-									className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+									className="w-full px-4 py-3 border border-gray-200 rounded-2xl bg-white/70 backdrop-blur-md focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all"
 								/>
 							</div>
 
@@ -126,7 +140,7 @@ export default function Register() {
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+								className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg px-4 transition-all hover:shadow-xl hover:scale-[1.02]"
 							>
 								{isLoading ? (
 									<>
@@ -157,6 +171,14 @@ export default function Register() {
 								)}
 							</button>
 						</form>
+
+						<div className="flex items-center gap-3">
+							<div className="h-px bg-gray-200 flex-1" />
+							<span className="text-xs text-gray-400">
+								Secure Authentication
+							</span>
+							<div className="h-px bg-gray-200 flex-1" />
+						</div>
 
 						{/* Footer Link */}
 						<div className="text-center text-sm text-gray-600">

@@ -127,8 +127,8 @@ function Dashboard() {
     return (
         <>
             <AppNavbar/>
-            <div className="min-h-screen bg-linear-to-br from-green-50 via-white to-blue-50 p-6 md:p-10 space-y-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="min-h-screen bg-linear-to-br from-green-50 via-white to-blue-50 p-6 md:p-10 space-y-5">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-2">
                     <div>
                         <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
                             Welcome back, {user?.name} 👋
@@ -140,7 +140,7 @@ function Dashboard() {
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="px-5 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition shadow-md"
+                        className="px-5 py-2.5 rounded-2xl bg-red-500 text-white shadow-lg hover:scale-105 hover:bg-red-600 transition-all duration-300"
                     >
                         Logout
                     </button>
@@ -163,7 +163,7 @@ function Dashboard() {
                         )}
 
                         {/* Summary Cards */}
-                        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                             {dashboardMetrics.map((metric) => (
                                 <SummaryCard
                                     key={metric.label}
@@ -188,7 +188,7 @@ function Dashboard() {
                         </div>
 
                         {/* Water + Weight */}
-                        <div className="grid gap-6 lg:grid-cols-2">
+                        <div className="grid gap-6 xl:grid-cols-2">
                             <WaterTrackerCard />
 
                             <WeightTrackerCard />
@@ -196,9 +196,7 @@ function Dashboard() {
 
                         {/* Goal Progress + Stats */}
                         <div className="grid gap-6 lg:grid-cols-2">
-
-                            <div className="rounded-2xl bg-white p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200">
-
+                            <div className="rounded-3xl bg-white p-5 shadow-lg border border-gray-100 h-fit">
                                 <div className="flex items-center gap-2 mb-4">
                                     <FaBullseye className="text-red-500 text-xl" />
                                     <h2 className="text-lg font-semibold">
@@ -206,9 +204,8 @@ function Dashboard() {
                                     </h2>
                                 </div>
 
-                                <div className="space-y-5">
-
-                                    <div>
+                                <div className="space-y-3">
+                                    <div className="space-y-1">
                                         <div className="flex justify-between mb-1">
                                             <span>Calories</span>
                                             <span>
@@ -223,7 +220,7 @@ function Dashboard() {
                                         />
                                     </div>
 
-                                    <div>
+                                    <div className="space-y-1">
                                         <div className="flex justify-between mb-1">
                                             <span>Protein</span>
                                             <span>
@@ -238,7 +235,7 @@ function Dashboard() {
                                         />
                                     </div>
 
-                                    <div>
+                                    <div className="space-y-1">
                                         <div className="flex justify-between mb-1">
                                             <span>
                                                 Carbs
@@ -256,7 +253,7 @@ function Dashboard() {
                                         />
                                     </div>
 
-                                    <div>
+                                    <div className="space-y-1">
                                         <div className="flex justify-between mb-1">
                                             <span>Fat</span>
 
@@ -284,42 +281,41 @@ function Dashboard() {
                                     </h2>
                                 </div>
 
-                                <div className="space-y-4">
+                                <div className="space-y-3 text-sm">
 
-                                    <div className="flex justify-between">
-                                        <span>
-                                            Current Streak
-                                        </span>
+                                    <div className="grid grid-cols-3 gap-3 mt-4">
+                                        <div className="bg-orange-50 rounded-xl p-3 text-center">
+                                            <p className="text-xs text-gray-500">
+                                                Streak
+                                            </p>
 
-                                        <span className="font-semibold">
-                                            {streak?.currentStreak || 0} days
-                                        </span>
+                                            <h3 className="font-bold text-orange-500">
+                                                {streak?.currentStreak || 0}
+                                            </h3>
+                                        </div>
+
+                                        <div className="bg-blue-50 rounded-xl p-3 text-center">
+                                            <p className="text-xs text-gray-500">
+                                                Days
+                                            </p>
+
+                                            <h3 className="font-bold text-blue-500">
+                                                {streak?.totalTrackedDays || 0}
+                                            </h3>
+                                        </div>
+
+                                        <div className="bg-green-50 rounded-xl p-3 text-center">
+                                            <p className="text-xs text-gray-500">
+                                                Meals
+                                            </p>
+
+                                            <h3 className="font-bold text-green-500">
+                                                {summary?.totalMeals || 0}
+                                            </h3>
+                                        </div>
                                     </div>
-
-                                    <div className="flex justify-between">
-                                        <span>
-                                            Total Tracked Days
-                                        </span>
-
-                                        <span className="font-semibold">
-                                            {streak?.totalTrackedDays || 0}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex justify-between">
-                                        <span>
-                                            Meals Logged
-                                        </span>
-
-                                        <span className="font-semibold">
-                                            {summary?.totalMeals || 0}
-                                        </span>
-                                    </div>
-
                                 </div>
-
                             </div>
-
                         </div>
 
                         {/* Weekly Chart + Recent Foods */}
@@ -329,20 +325,22 @@ function Dashboard() {
                                 data={weeklyData}
                             />
                             
-                            <div className="float-card">
+                            <div className="float-card h-105">
                                 <FoodList
                                     data={recentFoods}
+                                    className="h-full overflow-y-auto custom-scrollbar"
                                 />
                             </div>
 
                         </div>
                         
-                        {/* AI Suggestions */}
-                        <AIMealSuggestionsCard
-                            icon={
-                                <FaRobot className="text-indigo-500" />
-                            }
-                        />
+                            {/* AI Suggestions */}
+                            <AIMealSuggestionsCard
+                                icon={
+                                    <FaRobot className="text-indigo-500" />
+                                }
+                                className="max-h-105 overflow-y-auto custom-scrollbar"
+                            />
                     </>
                 )}
             </div>
