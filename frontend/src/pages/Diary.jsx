@@ -25,12 +25,7 @@ function Diary() {
 		setError("");
 
 		try {
-			console.log("Stored Token:", localStorage.getItem("authToken"));
 			const response = await foodService.getDiary();
-			console.log("Diary Response:", response);
-			console.log("Diary Data:", response?.data);
-			console.log("Diary Status:", response?.status);
-
 		if (response?.status === 200) {
 			setEntries(response.data.entries || []);
 		} else {
