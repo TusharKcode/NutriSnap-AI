@@ -26,8 +26,7 @@ const uploadFood = async (req, res) => {
             fat: providedFat,
         } = req.body;
 
-        // Temporary image reference
-        const imageUrl = `${req.protocol}://${req.get('host')}` + `/uploads/${imageFile.filename}`;
+        const imageUrl = `https://${req.get('host')}/uploads/${imageFile.filename}`;
 
         const analysis = await analyzeFood(imageFile.path, imageFile.mimetype);
 
