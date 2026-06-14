@@ -63,6 +63,35 @@ export function AuthProvider({ children }) {
 		return res;
 	};
 
+	const register = async (userData) => {
+		const res = await authService.registerUser(userData);
+
+		const data = res?.data || null;
+
+		const newToken =
+			data?.token ||
+			data?.accessToken ||
+			data?.access_token ||
+			null;
+
+		const newUser =
+			data?.user ||
+			data?.userInfo ||
+			(data && !newToken ? data : null);
+
+		if (newToken) {
+			setToken(newToken);
+			localStorage.setItem(TOKEN_KEY, newToken);
+		}
+
+		if (newUser) {
+			setUser(newUser);
+			localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+		}
+
+		return res;
+	};
+
 	const logout = () => {
 		setToken(null);
 		setUser(null);
@@ -75,7 +104,7 @@ export function AuthProvider({ children }) {
 		delete api.defaults.headers.common.Authorization;
 	};
 
-	const value = { user, token, login, logout };
+	const value = { user, token, login, register, logout };
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

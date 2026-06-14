@@ -5,7 +5,7 @@ import PublicNavbar from '../components/PublicNavbar';
 
 export default function Register() {
 	const navigate = useNavigate();
-	const { login } = useAuth();
+	const { register } = useAuth();
 
 	const [formValues, setFormValues] = useState({
 		name: '',
@@ -32,7 +32,7 @@ export default function Register() {
 
 		try {
 			// Call registerUser through the auth service
-			const response = await login(formValues);
+			const response = await register(formValues);
 
 			if (response?.status === 200 || response?.status === 201) {
 				navigate('/dashboard');
@@ -140,7 +140,7 @@ export default function Register() {
 							<button
 								type="submit"
 								disabled={isLoading}
-								className="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg px-4 transition-all hover:shadow-xl hover:scale-[1.02]"
+								className="w-full py-3 rounded-2xl bg-linear-to-r from-emerald-500 to-cyan-500 text-white font-bold shadow-lg px-4 transition-all hover:shadow-xl hover:scale-[1.02]"
 							>
 								{isLoading ? (
 									<>
